@@ -296,7 +296,7 @@ class Users extends Dbname implements Functions
             ];
 
             return json_encode($response);
-        }   
+        }
 
         $username = $params['username'];
         $password = $params['password'];
@@ -322,8 +322,10 @@ class Users extends Dbname implements Functions
                 'code' => 201,
                 'message' => 'Error'
             ];
-        }
+
             return json_encode($response);
+
+        }
     }
     
     public function search($params)
@@ -379,6 +381,37 @@ class Users extends Dbname implements Functions
                 'code' => 500,
                 'message' => $this->error()     
             ]);
+        }
+    }
+
+    public function authentication()
+    {
+        if (!isset($_SERVER['PHP_AUTH_USER']) || empty($_SERVER['PHP_AUTH_PW'])) {
+        echo json_encode([
+            'code' => 401,
+            'message' => 'Basic authentication is required!'
+            ]);
+        } else {
+            $username = $_SERVER['PHP_AUTH_USER'];
+            $password = $_SERVER['PHP_AUTH_PW'];
+
+            $data = $this->sql("SELECT * FROM $this->tblname");
+
+        if ($username === 'jerryparrocha' && $password === 'ilovejanlowed143') {
+            echo json_encode([
+                'code' => 200,
+                'message' => 'authentication successful!'
+            ]);
+            return json_encode($data->fetch_all(MYSQLI_ASSOC)); 
+                      
+        } else {
+            echo json_encode([
+                'code' => 401,
+                'message' => 'Invalid Authentication!'
+                ]);
+            }
+
+            
         }
     }
 }

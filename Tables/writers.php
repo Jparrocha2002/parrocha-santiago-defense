@@ -234,6 +234,15 @@ class Writers extends Dbname implements Functions
             exit();
         }
 
+        if(!isset($params['id']) || empty($params['id'])) {
+            $response = [
+                "code" => 422,
+                "message" => "id is required"
+            ];
+
+            return json_encode($response);
+        }
+
         if(!isset($params['first_name']) || empty($params['first_name'])) {
             $response = [
                 "code" => 422,
@@ -259,7 +268,7 @@ class Writers extends Dbname implements Functions
             ];
 
             return json_encode($response);
-        }
+        } 
         
         if(!isset($params['gender']) || empty($params['gender'])) {
             $response = [
@@ -277,8 +286,8 @@ class Writers extends Dbname implements Functions
             ];
 
             return json_encode($response);
-        }  
-
+        }
+        
         if(!isset($params['address']) || empty($params['address'])) {
             $response = [
                 "code" => 422,
@@ -286,18 +295,8 @@ class Writers extends Dbname implements Functions
             ];
 
             return json_encode($response);
-        }  
-
-        if(isset($params['id']) || empty($params['id'])) 
-        {         
-            $response = [
-                    "code" => 422,
-                    "message" => "id is required"
-                ];
-
-            return json_encode($response);
         }
-
+        
         $id = $params['id'];
         $first_name = $params['first_name'];
         $last_name = $params['last_name'];
@@ -305,9 +304,10 @@ class Writers extends Dbname implements Functions
         $gender = $params['gender'];
         $social_media = $params['social_media'];
         $address = $params['address'];
+        
 
-        $update = "UPDATE $this->tblname SET first_name = '$first_name', last_name = '$last_name', age = '$age'
-        , gender = '$gender', social_media = '$social_media', address = '$address' WHERE id = $id";
+
+        $update = "UPDATE $this->tblname SET first_name = '$first_name', last_name = '$last_name', age = '$age', gender = '$gender', social_media = '$social_media', address = '$address' WHERE id = $id";
         $isUpdated = $this->sql($update);
 
         if($isUpdated)
@@ -322,9 +322,10 @@ class Writers extends Dbname implements Functions
                 'code' => 404,
                 'message' => 'Writer Updated Unsuccessfully'
             ];
-
-            return json_encode($response);
         }
+
+        echo json_encode($response);
+
     }
     
     public function search($params)
@@ -384,6 +385,4 @@ class Writers extends Dbname implements Functions
         
     }
 }
-$call = new Writers();
-$call->setup();
 ?>
