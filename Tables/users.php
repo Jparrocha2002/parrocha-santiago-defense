@@ -1,6 +1,7 @@
 <?php
 
 include "../db.php";
+include "../interface.php";
 
 class Users extends Dbname implements Functions
 {
@@ -321,11 +322,9 @@ class Users extends Dbname implements Functions
             $response = [
                 'code' => 201,
                 'message' => 'Error'
-            ];
-
-            return json_encode($response);
-
+            ];               
         }
+            echo json_encode($response);
     }
     
     public function search($params)
@@ -338,6 +337,16 @@ class Users extends Dbname implements Functions
             ]);
 
             exit();
+        }
+
+        if(!isset($params) || empty($params))
+        {
+            $response = [
+                'code' => 422,
+                'message' => 'put information first'
+            ];
+
+            return json_encode($response);
         }
 
         $search = [
@@ -397,7 +406,7 @@ class Users extends Dbname implements Functions
 
             $data = $this->sql("SELECT * FROM $this->tblname");
 
-        if ($username === 'jerryparrocha' && $password === 'ilovejanlowed143') {
+        if ($username === 'defense' && $password === 'parrocha_santiago') {
             echo json_encode([
                 'code' => 200,
                 'message' => 'authentication successful!'

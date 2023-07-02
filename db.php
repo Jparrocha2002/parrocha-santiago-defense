@@ -1,5 +1,5 @@
 <?php
-include "polymorphism.php";
+include "abstract.php";
 
 class Dbname extends Database
 {
@@ -16,7 +16,7 @@ class Dbname extends Database
         $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
     }
     
-    protected function sql($sql)
+    public function sql($sql)
     {
         return $this->conn->query($sql);
     }

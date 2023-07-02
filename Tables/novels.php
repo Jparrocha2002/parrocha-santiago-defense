@@ -1,16 +1,16 @@
 <?php
 include "../db.php";
+include "../interface.php";
 
 class Novels extends Dbname implements Functions
 {
+    public $tblname = "novels";
 
     public function setup()
     {
         $this->initialize();
         $this->createTable();
-    }
-
-    public $tblname = "novels";
+    }    
 
     public function createTable()
     {
@@ -344,6 +344,16 @@ class Novels extends Dbname implements Functions
             exit();
         }
 
+        if(!isset($params) || empty($params))
+        {
+            $response = [
+                'code' => 422,
+                'message' => 'put information first'
+            ];
+
+            return json_encode($response);
+        }
+        
         $search = [
             "isbn" => "isbn",
             "title" => "title",

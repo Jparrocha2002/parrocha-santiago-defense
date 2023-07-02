@@ -1,8 +1,4 @@
 <?php
-abstract class Database
-{
-    abstract function initialize();
-}
 
 interface Functions
 {
@@ -13,6 +9,4 @@ interface Functions
     public function delete($params);
     public function update($params);
 }
-
-
 ?>
