@@ -4,9 +4,9 @@ header('WWW-Authenticate: Basic realm="My Private Area"');
 header('HTTP/1.0 401 Unauthorized');
 header('Content-type: application/json; charset=UTF-8');
 
-$create = new Users();
+$auth = new Users();
 
-$create->setup();
+$auth->setup();
 
-echo $create->authentication();
+echo $auth->authentication();
 ?>
